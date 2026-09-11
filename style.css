@@ -1,0 +1,232 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #1a1a1a;
+}
+
+/* Контейнер гри (День / Ніч) */
+#game-container {
+    width: 800px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: background 1.5s ease;
+}
+
+#game-container.day {
+    background: linear-gradient(to bottom, #70c5ce 0%, #e0f7fa 100%);
+}
+
+#game-container.night {
+    background: linear-gradient(to bottom, #0f2027 0%, #203a43 50%, #2c5364 100%);
+}
+
+/* Небесні тіла та хмари */
+#celestial {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 45px;
+    transition: all 1s ease;
+}
+
+.cloud {
+    position: absolute;
+    font-size: 30px;
+    opacity: 0.8;
+    animation: moveClouds 20s infinite linear;
+}
+.cloud1 { top: 30px; left: 800px; }
+.cloud2 { top: 60px; left: 1100px; }
+
+@keyframes moveClouds {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-1200px); }
+}
+
+/* Інтерфейс (HUD) */
+.hud {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    font-weight: bold;
+    z-index: 10;
+    position: relative;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 16px;
+    color: #333;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Ігрове поле */
+#game {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+}
+
+#ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 25px;
+    background: #5d4037;
+    border-top: 4px solid #4e342e;
+}
+
+/* Персонаж Дракончик (Повернутий вперед!) */
+#dino {
+    font-size: 45px;
+    position: absolute;
+    bottom: 20px;
+    left: 60px;
+    transform: scaleX(-1); /* Повертаємо дракончика обличчям праворуч! */
+    transition: bottom 0.1s ease;
+}
+
+/* Дракончик похитується при бігу */
+.running {
+    animation: dinoRun 0.3s infinite alternate;
+}
+
+@keyframes dinoRun {
+    0% { transform: scaleX(-1) translateY(0); }
+    100% { transform: scaleX(-1) translateY(-3px); }
+}
+
+.jump {
+    animation: jumpAnim 0.6s ease-out;
+}
+
+@keyframes jumpAnim {
+    0% { bottom: 20px; }
+    45% { bottom: 130px; }
+    100% { bottom: 20px; }
+}
+
+/* Перешкоди та Бокси */
+#cactus {
+    font-size: 40px;
+    position: absolute;
+    bottom: 20px;
+    right: -50px;
+    animation: moveCactus 2s infinite linear;
+}
+
+#mystery-box {
+    font-size: 35px;
+    position: absolute;
+    bottom: 60px;
+    right: -50px;
+}
+
+.hidden-box {
+    display: none;
+}
+
+@keyframes moveCactus {
+    0% { right: -50px; }
+    100% { right: 850px; }
+}
+
+/* Модальні вікна */
+.modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    width: 450px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.badge {
+    display: inline-block;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.rebus-display {
+    background: #e3f2fd;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+    border: 2px dashed #2196f3;
+}
+
+.timer {
+    color: #e91e63;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 8px 0;
+}
+
+.opt-btn {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    padding: 12px;
+    background: #f0f4f8;
+    border: 2px solid #cfd8dc;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.opt-btn:hover {
+    background: #e1f5fe;
+    border-color: #03a9f4;
+}
+
+/* Сертифікат переможця */
+.victory-card {
+    background: #fff8e1;
+    border: 4px solid #ffb300;
+}
+
+.certificate-code {
+    background: #ffecb3;
+    padding: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #e65100;
+    border-radius: 8px;
+    margin: 15px 0;
+}
